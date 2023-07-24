@@ -1,45 +1,45 @@
 import useSWR, { mutate } from "swr";
-import { Todo } from "./types";
+import { Person } from "./types";
 
 const fetcher = (input: RequestInfo, init?: RequestInit) =>
   fetch(input, init).then((res) => res.json());
 
-const todoPath = "/api/todos";
+const personPath = "/api/persons";
 
-export const useTodos = () => useSWR<Todo[]>(todoPath, fetcher);
+export const usePersons = () => useSWR<Person[]>(personPath, fetcher);
 
-export const createTodo = async (text: string) => {
+export const createPerson = async (firstName: string) => {
   mutate(
-    todoPath,
-    todos => [{ text, completed: false, id: "new-todo" }, ...todos],
+    personPath,
+    persons => [{ firstName }, ...persons],
     false,
   );
-  await fetch(todoPath, {
+  await fetch(personPath, {
     method: "POST",
-    body: JSON.stringify({ text }),
+    body: JSON.stringify({ firstName }),
   });
 
-  mutate(todoPath);
+  mutate(personPath);
 };
 
-export const toggleTodo = async (todo: Todo) => {
+export const togglePerson = async (person: Person) => {
   mutate(
-    todoPath,
-    todos =>
-      todos.map(t =>
-        t.id === todo.id ? { ...todo, completed: !t.completed } : t,
+    personPath,
+    persons =>
+      persons.map(p =>
+        p.id === person.id ? { ...person, completed: !p.completed } : p,
       ),
     false,
   );
-  await fetch(`${todoPath}?todoId=${todo.id}`, {
+  await fetch(`${personPath}?personId=${person.id}`, {
     method: "PUT",
-    body: JSON.stringify({ completed: !todo.completed }),
+    body: JSON.stringify({  }),
   });
-  mutate(todoPath);
+  mutate(personPath);
 };
 
-export const deleteTodo = async (id: string) => {
-  mutate(todoPath, todos => todos.filter(t => t.id !== id), false);
-  await fetch(`${todoPath}?todoId=${id}`, { method: "DELETE" });
-  mutate(todoPath);
+export const deletePerson = async (id: string) => {
+  mutate(personPath, persons => persons.filter(p => p.id !== id), false);
+  await fetch(`${personPath}?personId=${id}`, { method: "DELETE" });
+  mutate(personPath);
 };

@@ -1,6 +1,13 @@
-export interface Todo {
+export interface Person {
   id: string;
-  created: string;
-  text: string;
-  completed: boolean;
+  firstName: string;
+  lastname: string;
+  gender: string;
+  birthdate: Date;
+  street1: string;
+  street2: string;
+  city: string;
+  state: string;
+  zip: string;
+  created_at: string;
 }
