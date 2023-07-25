@@ -6,14 +6,14 @@ const prisma = new PrismaClient();
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === "GET") {
     // get all persons
-    const persons = await prisma.persons.findMany({
+    const persons = await prisma.person.findMany({
       orderBy: { createdAt: "desc" },
     });
     res.json(persons);
   } else if (req.method === "POST") {
     // create person
     const firstName = JSON.parse(req.body).firstName;
-    const person = await prisma.persons.create({
+    const person = await prisma.person.create({
       data: { firstName: firstName },
     });
 
@@ -22,7 +22,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     // update person
     const id = req.query.personId as string;
     const data = JSON.parse(req.body);
-    const person = await prisma.persons.update({
+    const person = await prisma.person.update({
       where: { id },
       data,
     });
@@ -31,7 +31,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   } else if (req.method === "DELETE") {
     // delete person
     const id = req.query.personId as string;
-    await prisma.persons.delete({ where: { id } });
+    await prisma.person.delete({ where: { id } });
 
     res.json({ status: "ok" });
   }

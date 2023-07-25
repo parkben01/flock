@@ -1,6 +1,6 @@
 import { NextPage } from "next";
 import Head from "next/head";
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { createPerson, deletePerson, togglePerson, usePersons } from "../api";
 import styles from "../styles/Home.module.css";
 import { Person } from "../types";

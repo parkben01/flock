@@ -9,5 +9,5 @@ export interface Person {
   city: string;
   state: string;
   zip: string;
-  created_at: string;
+  createdAt: string;
 }
