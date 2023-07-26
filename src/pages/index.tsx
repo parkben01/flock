@@ -45,45 +45,69 @@ const PersonItem: React.FC<{ person: Person }> = ({ person }) => (
 );
 
 const AddPersonInput = () => {
-  const [firstName, setFirstname] = useState(null);
-  const [lastName, setLastname] = useState(null);
-  const [gender, setGender] = useState(null);
-  const [birthdate, setBirthdate] = useState(null);
-  const [street1, setStreet1] = useState(null);
-  const [street2, setStreet2] = useState(null);
-  const [city, setCity] = useState(null);
-  const [state, setState] = useState(null);
-  const [zip, setZip] = useState(null);
-  const [email, setEmail] = useState(null);
-  const [phoneNumber, setPhoneNumber] = useState(null);
+  const [firstName, setFirstname] = useState("");
+  const [lastName, setLastname] = useState("");
+  const [gender, setGender] = useState("");
+  const [birthdate, setBirthdate] = useState("");
+  const [street1, setStreet1] = useState("");
+  const [street2, setStreet2] = useState("");
+  const [city, setCity] = useState("");
+  const [state, setState] = useState("");
+  const [zip, setZip] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
   //const is similar but better than var, constant value cannot change
   //let can be changed throughout
   //State
   
+  const validateInputs = () => {
+    // Check that firstName exists
+    if (!firstName) return false;
+
+    // Check that birthdate is in a valid Date format
+    const date = new Date(birthdate.trim());
+    if (date.toString() === "Invalid Date") return false;
+
+    // Nothing wrong!
+    return true;
+  }
+
+  const resetInputs = () => {
+    setFirstname("");
+    setLastname("");
+    setGender("");
+    setBirthdate("");
+    setStreet1("");
+    setStreet2("");
+    setCity("");
+    setState("");
+    setZip("");
+    setEmail("");
+    setPhone("");
+  }
 
   return (
     <form
       onSubmit={async e => {
         e.preventDefault();
+
+        if (!validateInputs()) return;
+
         createPerson({
-          firstName: firstName,
-          lastName: lastName,
-          gender: gender,
+          firstName: firstName.trim(),
+          lastName: lastName.trim(),
+          gender: gender.trim(),
+          birthdate: new Date(birthdate.trim()),
+          street1: street1.trim(),
+          street2: street2.trim(),
+          city: city.trim(),
+          state: state.trim(),
+          zip: zip.trim(),
+          email: email.trim(),
+          phone: phone.trim(),
         });
 
-
-        //resetting each textbox back to placeholder
-        setFirstname(null);
-        setLastname(null);
-        setGender(null);
-        setBirthdate(null);
-        setStreet1(null);
-        setStreet2(null);
-        setCity(null);
-        setState(null);
-        setZip(null);
-        setEmail(null);
-        setPhoneNumber(null);
+        resetInputs();
       }}
       className={styles.addTodo}
     >
@@ -99,10 +123,10 @@ const AddPersonInput = () => {
         value={lastName}
         onChange={e => setLastname(e.target.value)}
       />
-      <input
+      <input // TODO: use <select> instead of <input>. See https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select
         className={styles.input}
         placeholder="Gender"
-        value={gender}
+        value={gender}  // we want them to enter only male or female or ""
         onChange={e => setGender(e.target.value)}
       />
       <input
@@ -150,8 +174,8 @@ const AddPersonInput = () => {
       <input
         className={styles.input}
         placeholder="Phone Number"
-        value={phoneNumber}
-        onChange={e => setPhoneNumber(e.target.value)}
+        value={phone}
+        onChange={e => setPhone(e.target.value)}
       />
       <button className={styles.addButton}>Add</button>
     </form>

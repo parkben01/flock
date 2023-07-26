@@ -1,13 +1,15 @@
 export interface Person {
-  id: string;
+  id?: string;
   firstName: string;
-  lastname: string;
-  gender: string;
-  birthdate: Date;
-  street1: string;
-  street2: string;
-  city: string;
-  state: string;
-  zip: string;
-  createdAt: string;
+  lastName?: string;
+  gender?: string;
+  birthdate?: Date;
+  street1?: string;
+  street2?: string;
+  city?: string;
+  state?: string;
+  zip?: string;
+  email?: string;
+  phone?: string;
+  createdAt?: Date;
 }

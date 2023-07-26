@@ -8,7 +8,7 @@ const personPath = "/api/persons";
 
 export const usePersons = () => useSWR<Person[]>(personPath, fetcher);
 
-export const createPerson = async (person) => {
+export const createPerson = async (person: Person) => {
   mutate(
     personPath,
     persons => [person, ...persons],
