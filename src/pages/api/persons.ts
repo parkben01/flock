@@ -13,8 +13,9 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   } else if (req.method === "POST") {
     // create person
     const firstName = JSON.parse(req.body).firstName;
+    const lastName = JSON.parse(req.body).lastName;
     const person = await prisma.person.create({
-      data: { firstName: firstName },
+      data: JSON.parse(req.body),
     });
 
     res.json(person);

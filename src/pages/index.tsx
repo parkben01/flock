@@ -45,17 +45,17 @@ const PersonItem: React.FC<{ person: Person }> = ({ person }) => (
 );
 
 const AddPersonInput = () => {
-  const [firstName, setFirstname] = useState("");
-  const [lastName, setLastname] = useState("");
-  const [gender, setGender] = useState("");
-  const [birthdate, setBirthdate] = useState("");
-  const [street1, setStreet1] = useState("");
-  const [street2, setStreet2] = useState("");
-  const [city, setCity] = useState("");
-  const [state, setState] = useState("");
-  const [zip, setZip] = useState("");
-  const [email, setEmail] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
+  const [firstName, setFirstname] = useState(null);
+  const [lastName, setLastname] = useState(null);
+  const [gender, setGender] = useState(null);
+  const [birthdate, setBirthdate] = useState(null);
+  const [street1, setStreet1] = useState(null);
+  const [street2, setStreet2] = useState(null);
+  const [city, setCity] = useState(null);
+  const [state, setState] = useState(null);
+  const [zip, setZip] = useState(null);
+  const [email, setEmail] = useState(null);
+  const [phoneNumber, setPhoneNumber] = useState(null);
   //const is similar but better than var, constant value cannot change
   //let can be changed throughout
   //State
@@ -65,21 +65,25 @@ const AddPersonInput = () => {
     <form
       onSubmit={async e => {
         e.preventDefault();
-        createPerson(firstName);
+        createPerson({
+          firstName: firstName,
+          lastName: lastName,
+          gender: gender,
+        });
 
 
         //resetting each textbox back to placeholder
-        setFirstname("");
-        setLastname("");
-        setGender("");
-        setBirthdate("");
-        setStreet1("");
-        setStreet2("");
-        setCity("");
-        setState("");
-        setZip("");
-        setEmail("");
-        setPhoneNumber("");
+        setFirstname(null);
+        setLastname(null);
+        setGender(null);
+        setBirthdate(null);
+        setStreet1(null);
+        setStreet2(null);
+        setCity(null);
+        setState(null);
+        setZip(null);
+        setEmail(null);
+        setPhoneNumber(null);
       }}
       className={styles.addTodo}
     >
