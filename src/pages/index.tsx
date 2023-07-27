@@ -9,6 +9,7 @@ export const PersonList: React.FC = () => {
   const { data: persons, error } = usePersons();
 
   if (error != null) return <div>Error loading persons...</div>;
+
   if (persons == null) return <div>Loading...</div>;
 
   if (persons.length === 0) {
@@ -26,18 +27,10 @@ export const PersonList: React.FC = () => {
 
 const PersonItem: React.FC<{ person: Person }> = ({ person }) => (
   <li className={styles.todo}>
-    <label
-      className={`${styles.label} ${styles.checked}`}
-    >
-      <input
-        type="checkbox"
-        checked={!!person.firstName}
-        className={`${styles.checkbox}`}
-        onChange={() => togglePerson(person)}
-      />
-      {person.firstName}
-    </label>
-
+    {person.firstName}
+    {person.lastName}
+    {person.gender}
+    
     <button className={styles.deleteButton} onClick={() => deletePerson(person.id)}>
       ✕
     </button>
@@ -60,12 +53,12 @@ const AddPersonInput = () => {
   //let can be changed throughout
   //State
   
-  const validateInputs = () => {
+  const inputsAreValid = () => {
     // Check that firstName exists
     if (!firstName) return false;
 
     // Check that birthdate is in a valid Date format
-    if (!!birthdate) {
+    if (birthdate) {
       const date = new Date(birthdate.trim());
       if (date.toString() === "Invalid Date") return false;
     }
@@ -93,7 +86,7 @@ const AddPersonInput = () => {
       onSubmit={async e => {
         e.preventDefault();
 
-        if (!validateInputs()) return;
+        if (!inputsAreValid()) return;
 
         createPerson({
           firstName: firstName.trim(),
@@ -125,15 +118,6 @@ const AddPersonInput = () => {
         value={lastName}
         onChange={e => setLastname(e.target.value)}
       />
-      {/* <select>
-        className={styles.input}
-        placeholder="Gender"
-        value={gender}
-        <option value="">--Please choose an option--</option>
-        <option value="Male">Male</option>
-        <option value="Female">Female</option>
-        onChange={e => setGender(e.target.value)}
-      </select> */}
       <select
         className={styles.input}
         placeholder="Gender"
