@@ -65,8 +65,10 @@ const AddPersonInput = () => {
     if (!firstName) return false;
 
     // Check that birthdate is in a valid Date format
-    const date = new Date(birthdate.trim());
-    if (date.toString() === "Invalid Date") return false;
+    if (!!birthdate) {
+      const date = new Date(birthdate.trim());
+      if (date.toString() === "Invalid Date") return false;
+    }
 
     // Nothing wrong!
     return true;
@@ -123,7 +125,7 @@ const AddPersonInput = () => {
         value={lastName}
         onChange={e => setLastname(e.target.value)}
       />
-      <select>
+      {/* <select>
         className={styles.input}
         placeholder="Gender"
         value={gender}
@@ -131,6 +133,16 @@ const AddPersonInput = () => {
         <option value="Male">Male</option>
         <option value="Female">Female</option>
         onChange={e => setGender(e.target.value)}
+      </select> */}
+      <select
+        className={styles.input}
+        placeholder="Gender"
+        value={gender}
+        onChange={e => setGender(e.target.value)}
+      >
+        <option value="">--Please choose an option--</option>
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
       </select>
       <input
         className={styles.input}
