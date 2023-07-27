@@ -123,12 +123,15 @@ const AddPersonInput = () => {
         value={lastName}
         onChange={e => setLastname(e.target.value)}
       />
-      <input // TODO: use <select> instead of <input>. See https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select
+      <select>
         className={styles.input}
         placeholder="Gender"
-        value={gender}  // we want them to enter only male or female or ""
+        value={gender}
+        <option value="">--Please choose an option--</option>
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
         onChange={e => setGender(e.target.value)}
-      />
+      </select>
       <input
         className={styles.input}
         placeholder="Birthdate"
