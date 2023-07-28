@@ -22,18 +22,18 @@ export const createPerson = async (person: Person) => {
   mutate(personPath);
 };
 
-export const togglePerson = async (person: Person) => {
+export const updatePerson = async (person: Person) => {
   mutate(
     personPath,
     persons =>
       persons.map(p =>
-        p.id === person.id ? { ...person, completed: !p.completed } : p,
+        p.id === person.id ? { ...person } : p,
       ),
     false,
   );
   await fetch(`${personPath}?personId=${person.id}`, {
     method: "PUT",
-    body: JSON.stringify({  }),
+    body: JSON.stringify(person),
   });
   mutate(personPath);
 };

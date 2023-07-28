@@ -199,7 +199,6 @@ const Home: NextPage = () => {
 
       <main className={styles.main}>
         <AddPersonInput />
-
         <PersonList />
       </main>
     </div>
