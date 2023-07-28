@@ -16,21 +16,39 @@ export const PersonList: React.FC = () => {
     return <div className={styles.emptyState}>Try adding a person ☝️️</div>;
   }
 
+  //I created the table at the bottom of the website, 
+  //but I just don't know how to style the spacing between the words
   return (
-    <ul className={styles.personList}>
-      {persons.map(person => (
-        <PersonItem person={person} />
-      ))}
-    </ul>
+    <table className={styles.personList}>
+      <tr>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Gender</th>
+        <th>Birthdate</th>
+        <th>Street 1</th>
+        <th>Street 2</th>
+        <th>City</th>
+        <th>State</th>
+        <th>Zip</th>
+        <th>Email</th>
+        <th>Phone</th>
+      </tr>
+
+      <tr>
+        {persons.map(person => (
+          <PersonItem person={person} />
+        ))}
+      </tr>
+    </table>
   );
 };
 
 const PersonItem: React.FC<{ person: Person }> = ({ person }) => (
   <li className={styles.todo}>
-    {person.firstName}
+      {person.firstName}
     {person.lastName}
     {person.gender}
-    
+
     <button className={styles.deleteButton} onClick={() => deletePerson(person.id)}>
       ✕
     </button>
