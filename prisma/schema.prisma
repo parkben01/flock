@@ -33,3 +33,11 @@ model Student {
   hsGradYear  Int?
   school      String?
 }
+
+model User {
+  userId String @id @default(uuid())
+  firstName String
+  lastName String
+  email String
+  password String
+}
