@@ -88,8 +88,8 @@ const Home: NextPage = () => {
       field: 'birthdate',
       headerName: 'Birthdate',
       editable: true,
-      // type: 'date',
-      // valueGetter: (p) => new Date(p.value)
+      type: 'date',
+      valueGetter: (p) => new Date(p.value)
     },
     {
       field: 'email',
@@ -259,10 +259,6 @@ const Home: NextPage = () => {
         <title>Directory</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
-      <header className={styles.header}>
-        <h1 className={styles.title}>Directory</h1>
-      </header>
 
       <main className={styles.main}>
         <Box sx={{ width: '100%' }}>

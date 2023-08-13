@@ -15,7 +15,7 @@ model Person {
   firstName String
   lastName  String?
   gender    String?
-  birthdate DateTime? @db.Date
+  birthdate DateTime?
   phone     String?
   email     String?
   street1   String?
