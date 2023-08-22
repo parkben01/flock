@@ -18,4 +18,10 @@ CREATE TABLE persons (
   "createdAt" timestamp with time zone DEFAULT now()
 );
 
+CREATE TABLE loginCredentials (
+  "id" UUID DEFAULT uuid_generate_v4 () PRIMARY KEY,
+  "userName" varchar(50),
+  "password" varchar(50),
+);
+
 -- COMMIT;
