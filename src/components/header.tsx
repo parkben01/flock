@@ -22,7 +22,7 @@ export default function Header() {
                   variant="contained"
                   onClick={(e) => {
                     e.preventDefault()
-                    signIn()
+                    signIn('google')
                   }}
                 >
                   Sign in
