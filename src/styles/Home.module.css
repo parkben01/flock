@@ -7,16 +7,40 @@
 }
 
 .header {
-  padding: 4rem 0 2rem 0;
+  height: 6rem;
+  background-color: lightgrey;
+  padding: 0 2rem;
+  .contentContainer {
+    width: 50rem;
+    display: flex;
+    justify-content: space-between;
+  }
+  /* justify-content: center; */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.avatar {
+  border-radius: 2rem;
+  float: left;
+  height: 2.8rem;
+  width: 2.8rem;
+  background-color: white;
+  background-size: cover;
+  background-repeat: no-repeat;
+  margin-right: 1rem;
+}
+.signedInText {
+  margin-right: 1rem;
+}
+
+.mainButton {
+  margin-top: 2rem;
 }
 
 .main {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  min-width: 500px;
+  padding-top: 3rem;
 }
 
 .title {
