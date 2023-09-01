@@ -39,6 +39,11 @@
   margin-top: 2rem;
 }
 
+.tableContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
 .main {
   padding-top: 3rem;
 }

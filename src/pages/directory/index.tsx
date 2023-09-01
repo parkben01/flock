@@ -278,48 +278,42 @@ const Home: NextPage = () => {
     event.defaultMuiPrevented = true;
   }
   return (
-    <div className={styles.container}>
-      <Head>
-        <title>Directory</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+    <div className={styles.tableContainer}>
+      <Box sx={{ width: '100%' }}>
+        <h2>Student Directory</h2>
+        <DataGrid
+          initialState={initialState}
+          rows={rows}
+          columns={columns}
+          editMode="row"
+          rowHeight={30}
+          rowModesModel={rowModesModel}
+          disableRowSelectionOnClick
+          onCellDoubleClick={handleCellEditEvents}
+          onRowDoubleClick={handleCellEditEvents}
+          onCellKeyDown={handleCellEditEvents}
 
-      <main className={styles.main}>
-        <Box sx={{ width: '100%' }}>
-          <DataGrid
-            initialState={initialState}
-            rows={rows}
-            columns={columns}
-            editMode="row"
-            rowHeight={30}
-            rowModesModel={rowModesModel}
-            disableRowSelectionOnClick
-            onCellDoubleClick={handleCellEditEvents}
-            onRowDoubleClick={handleCellEditEvents}
-            onCellKeyDown={handleCellEditEvents}
-
-            onRowModesModelChange={handleRowModesModelChange}
-            onRowEditStop={handleRowEditStop}
-            processRowUpdate={processRowUpdate}
-            slots={{
-              toolbar: CustomToolbar,
-            }}
-            slotProps={{
-              toolbar: { setRows, setRowModesModel },
-            }}
-          />
-        </Box>
-        {!!snackbar && (
-          <Snackbar
-            open
-            anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-            onClose={handleCloseSnackbar}
-            autoHideDuration={6000}
-          >
-            <Alert {...snackbar} onClose={handleCloseSnackbar} />
-          </Snackbar>
-        )}
-      </main>
+          onRowModesModelChange={handleRowModesModelChange}
+          onRowEditStop={handleRowEditStop}
+          processRowUpdate={processRowUpdate}
+          slots={{
+            toolbar: CustomToolbar,
+          }}
+          slotProps={{
+            toolbar: { setRows, setRowModesModel },
+          }}
+        />
+      </Box>
+      {!!snackbar && (
+        <Snackbar
+          open
+          anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+          onClose={handleCloseSnackbar}
+          autoHideDuration={6000}
+        >
+          <Alert {...snackbar} onClose={handleCloseSnackbar} />
+        </Snackbar>
+      )}
     </div>
   );
 };

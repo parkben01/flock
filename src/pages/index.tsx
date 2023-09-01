@@ -10,10 +10,6 @@ const Home: NextPage = () => {
   const router = useRouter();
   return (
     <>
-      <Head>
-        <title>AYM Flock</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
       <main className={styles.container}>
         {session && <Button
           className={styles.mainButton}

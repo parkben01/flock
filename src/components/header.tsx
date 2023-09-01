@@ -1,6 +1,7 @@
 import { signIn, signOut, useSession } from "next-auth/react";
 import styles from "../styles/Home.module.css";
 import { Button } from "@mui/material";
+import Link from "next/link";
 
 export default function Header() {
   const { data: session, status } = useSession();
@@ -8,7 +9,7 @@ export default function Header() {
   return (
     <header className={styles.header}>
       {/* <div className={styles.contentContainer}> */}
-        <img className={styles.logo} src="/sheep-icon.png"></img>
+        <Link href="/"><img className={styles.logo} src="/sheep-icon.png"></img></Link>
         <div className={styles.signedInStatus}>
           <p
             className={`nojs-show ${!session && loading ? styles.loading : styles.loaded
