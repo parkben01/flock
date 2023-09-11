@@ -45,6 +45,6 @@ model User {
 model Event {
   eventId String @id @default(uuid())
   name String
-  start String
-  end String
+  start String?
+  end String?
 }
