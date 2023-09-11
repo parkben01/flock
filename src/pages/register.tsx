@@ -2,9 +2,11 @@ import { NextPage } from "next";
 import { useState } from "react";
 import styles from "../styles/Home.module.css";
 
-const Login = () => {
+const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
     const loginDatabase: { [name: string]: string } = {};
     // const loginDatabase: Record<string, string> = {};
     loginDatabase.email = 'password';
@@ -18,12 +20,20 @@ const Login = () => {
         console.log('invalidPassword');
         return false;
       }
+      if (!firstName) {
+        console.log('invalidFirstName');
+        return false;
+      }
+      if (!lastName) {
+        console.log('invalidLastName');
+        return false;
+      } 
       return true;
     }
-    
-    const confirmLogin = (email, password) => {
-      if (!(loginDatabase.email === password)) {
-        console.log('invalidCombination');
+
+    const confirmRegistration = (first, last, email, password) => {
+      if (loginDatabase.email) {
+        console.log('emailIsAlreadyInUse');
         return false;
       }
       console.log('validCombination');
@@ -33,6 +43,8 @@ const Login = () => {
     const resetInputs = () => {
       setEmail("");
       setPassword("");
+      setFirstName("");
+      setLastName("");
     }
 
     return (
@@ -40,7 +52,7 @@ const Login = () => {
         onSubmit={async e => {
           e.preventDefault();
           if (!inputsAreValid()) return;
-          if (!confirmLogin(email, password)) return;
+          if (!confirmRegistration(firstName, lastName, email, password)) return;
           resetInputs();
         }}
         className={styles.addTodo}
@@ -57,7 +69,19 @@ const Login = () => {
           value={password}
           onChange={e => setPassword(e.target.value)}
         />
-        <button className={styles.loginButton}>Login</button>
+        <input
+          className={styles.input}
+          placeholder="First Name"
+          value={firstName}
+          onChange={e => setFirstName(e.target.value)}
+        />
+        <input
+          className={styles.input}
+          placeholder="Last Name"
+          value={lastName}
+          onChange={e => setLastName(e.target.value)}
+        />
+        <button className={styles.loginButton}>Register</button>
       </form>
     );
 };
@@ -66,10 +90,10 @@ const Home: NextPage = () => {
   return (
     <div className={styles.container}>
       <header className={styles.header}>
-        <h1 className={styles.title}>Login</h1>
+        <h1 className={styles.title}>Sign Up</h1>
       </header>
       <main className={styles.main}>
-        { < Login /> }
+        { < Register /> }
       </main>
     </div>
   );
