@@ -41,3 +41,10 @@ model User {
   email String
   password String
 }
+
+model Event {
+  eventId String @id @default(uuid())
+  name String
+  start String
+  end String
+}
