@@ -29,15 +29,9 @@ CREATE TABLE users (
 CREATE TABLE events (
   "id" UUID DEFAULT uuid_generate_v4 () PRIMARY KEY,
   "name" varchar(50),
-  "start" varchar
-  "end" 
-)
+  "start" varchar(50),
+  "end" varchar(50)
+);
 
-   Event {
-  eventId String @id @default(uuid())
-  name String
-  start String
-  end String
-};
 
 -- COMMIT;
