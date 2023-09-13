@@ -26,3 +26,32 @@ model Person {
   createdAt DateTime @default(now()) @db.Timestamptz()
   student   Student?
 }
+
+model Student {
+  personId    String @unique
+  person      Person @relation(fields: [personId], references: [id])
+  hsGradYear  Int?
+  school      String?
+}
+
+model User {
+  userId    String @id @default(uuid())
+  firstName String
+  lastName  String
+  email     String
+  password  String
+}
+
+model Event {
+  id    String @id @default(uuid())
+  name  String
+  start String?
+  end   String?
+}
+
+model Attendance{
+  id        String @id @default(uuid())
+  eventId   String 
+  event     Event @relation(fields: [eventId], references: [id])
+  attendees String[]
+}
