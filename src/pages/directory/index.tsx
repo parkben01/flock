@@ -1,11 +1,11 @@
 import { NextPage } from "next";
 import Head from "next/head";
-import { useCallback, useEffect, useState } from "react";
-import { createPerson, deletePerson, updatePerson, usePersons } from "../api";
-import styles from "../styles/Home.module.css";
-import { Person } from "../types";
+import { useEffect, useState } from "react";
+import { createPerson, deletePerson, updatePerson, usePersons } from "../../api";
+import styles from "../../styles/Home.module.css";
+import { Person } from "../../types";
 import Box from '@mui/material/Box';
-import { DataGrid, GridActionsCellItem, GridColDef, GridEventListener, GridRowEditStopReasons, GridRowId, GridRowModes, GridRowModesModel, GridRowsProp, GridToolbarContainer } from '@mui/x-data-grid';
+import { DataGrid, GridActionsCellItem, GridColDef, GridEventListener, GridRowEditStopReasons, GridRowId, GridRowModes, GridRowModesModel, GridRowsProp, GridToolbar, GridToolbarColumnsButton, GridToolbarContainer, GridToolbarFilterButton } from '@mui/x-data-grid';
 import Snackbar from '@mui/material/Snackbar';
 import Alert, { AlertProps } from '@mui/material/Alert';
 import AddIcon from '@mui/icons-material/Add';
@@ -13,11 +13,11 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/DeleteOutlined';
 import SaveIcon from '@mui/icons-material/Save';
 import CancelIcon from '@mui/icons-material/Close';
-import { randomUUID } from "crypto";
 import { Button } from "@mui/material";
+import CONSTANTS from '../../utilities/constants';
 
 
-interface EditToolbarProps {
+interface CustomToolbarProps {
   setRows: (newRows: (oldRows: GridRowsProp) => GridRowsProp) => void;
   setRowModesModel: (
     newModel: (oldModel: GridRowModesModel) => GridRowModesModel,
@@ -37,10 +37,10 @@ const emptyPerson: Person = {
   zip: "",
 }
 
-function EditToolbar(props: EditToolbarProps) {
+function CustomToolbar(props: CustomToolbarProps) {
   const { setRows, setRowModesModel } = props;
 
-  const handleClick = () => {
+  const handleAddPersonClick = () => {
     const id = crypto.randomUUID();
     setRows((oldRows) => [...oldRows, { ...emptyPerson, id, isNew: true }]);
     setRowModesModel((oldModel) => ({
@@ -51,14 +51,34 @@ function EditToolbar(props: EditToolbarProps) {
 
   return (
     <GridToolbarContainer>
-      <Button color="primary" startIcon={<AddIcon />} onClick={handleClick}>
-        Add record
+      <Button color="primary" startIcon={<AddIcon />} onClick={handleAddPersonClick}>
+        Add Person
       </Button>
+      <GridToolbarColumnsButton />
+      <GridToolbarFilterButton />
     </GridToolbarContainer>
   );
 }
 
 const Home: NextPage = () => {
+  const [initialState, setInitialState] = useState({
+    columns: {
+      columnVisibilityModel: {
+        firstName: true,
+        lastName: true,
+        phone: true,
+        email: true,
+        gender: true,
+        birthdate: true,
+        street1: true,
+        street2: true,
+        city: true,
+        state: true,
+        zip: true,
+        actions: true,
+      },
+    },
+  })
   const [rows, setRows] = useState([]);
   const [rowModesModel, setRowModesModel] = useState<GridRowModesModel>({});
   const [snackbar, setSnackbar] = useState<Pick<
@@ -82,7 +102,7 @@ const Home: NextPage = () => {
       headerName: 'Sex',
       editable: true,
       type: 'singleSelect',
-      valueOptions: ['male', 'female'],
+      valueOptions: CONSTANTS.GENDERS,
     },
     {
       field: 'birthdate',
@@ -120,6 +140,8 @@ const Home: NextPage = () => {
       field: 'state',
       headerName: 'State',
       editable: true,
+      type: 'singleSelect',
+      valueOptions: CONSTANTS.STATES,
     },
     {
       field: 'zip',
@@ -152,6 +174,12 @@ const Home: NextPage = () => {
               onClick={handleCancelClick(id)}
               color="inherit"
             />,
+            <GridActionsCellItem
+              icon={<DeleteIcon />}
+              label="Delete"
+              onClick={handleDeleteClick(id)}
+              color="inherit"
+            />,
           ];
         }
 
@@ -161,12 +189,6 @@ const Home: NextPage = () => {
             label="Edit"
             className="textPrimary"
             onClick={handleEditClick(id)}
-            color="inherit"
-          />,
-          <GridActionsCellItem
-            icon={<DeleteIcon />}
-            label="Delete"
-            onClick={handleDeleteClick(id)}
             color="inherit"
           />,
         ];
@@ -241,7 +263,6 @@ const Home: NextPage = () => {
     return updatedRow;
   }
 
-
   // const handleProcessRowUpdateError = useCallback((error: Error) => {
   //   setSnackbar({ children: error.message, severity: 'error' });
   // }, []);
@@ -253,6 +274,9 @@ const Home: NextPage = () => {
     if (!error && persons) setRows(persons);
   }, [persons]);
 
+  const handleCellEditEvents = (params, event) => {
+    event.defaultMuiPrevented = true;
+  }
   return (
     <div className={styles.container}>
       <Head>
@@ -263,15 +287,22 @@ const Home: NextPage = () => {
       <main className={styles.main}>
         <Box sx={{ width: '100%' }}>
           <DataGrid
+            initialState={initialState}
             rows={rows}
             columns={columns}
             editMode="row"
+            rowHeight={30}
             rowModesModel={rowModesModel}
+            disableRowSelectionOnClick
+            onCellDoubleClick={handleCellEditEvents}
+            onRowDoubleClick={handleCellEditEvents}
+            onCellKeyDown={handleCellEditEvents}
+
             onRowModesModelChange={handleRowModesModelChange}
             onRowEditStop={handleRowEditStop}
             processRowUpdate={processRowUpdate}
             slots={{
-              toolbar: EditToolbar,
+              toolbar: CustomToolbar,
             }}
             slotProps={{
               toolbar: { setRows, setRowModesModel },
