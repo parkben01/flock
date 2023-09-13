@@ -47,11 +47,5 @@ model Event {
   name  String
   start String?
   end   String?
-}
-
-model Attendance{
-  id        String @id @default(uuid())
-  eventId   String 
-  event     Event @relation(fields: [eventId], references: [id])
-  attendees String[]
+  attendees String[]?
 }
