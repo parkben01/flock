@@ -24,6 +24,14 @@ const Home: NextPage = () => {
           }}>
             Directory
         </Button>}
+        {session && <Button
+          className={styles.mainButton}
+          variant="contained"
+          onClick={() => {
+            router.push('/events');
+          }}>
+            Events
+        </Button>}
       </main>
     </>
   );

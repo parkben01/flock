@@ -30,7 +30,7 @@ CREATE TABLE events (
   "id" UUID DEFAULT uuid_generate_v4 () PRIMARY KEY,
   "name" varchar(50),
   "start" varchar(50),
-  "end" varchar(50)
+  "end" varchar(50),
 );
 
 
