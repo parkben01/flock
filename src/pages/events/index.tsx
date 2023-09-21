@@ -79,14 +79,14 @@ const Home: NextPage = () => {
     },
     {
       field: 'start',
-      headerName: 'Start time',
+      headerName: 'Start',
       editable: true,
       type: 'dateTime',
       valueGetter: (e) => new Date(e.value)
     },
     {
       field: 'end',
-      headerName: 'End time',
+      headerName: 'End',
       editable: true,
       type: 'dateTime',
       valueGetter: (e) => new Date(e.value)
