@@ -13,3 +13,10 @@ export interface Person {
   phone?: string;
   createdAt?: Date;
 }
+
+export interface Event {
+  id: string;
+  name?: string;
+  start?: string;
+  end?: string;
+}
