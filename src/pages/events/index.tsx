@@ -90,53 +90,7 @@ const Home: NextPage = () => {
       editable: true,
       type: 'dateTime',
       valueGetter: (e) => new Date(e.value)
-      // type: 'singleSelect',
-      // valueOptions: CONSTANTS.GENDERS,
     },
-    // {
-    //   field: 'birthdate',
-    //   headerName: 'Birthdate',
-    //   editable: true,
-    //   type: 'date',
-    //   valueGetter: (p) => new Date(p.value)
-    // },
-    // {
-    //   field: 'email',
-    //   headerName: 'Email',
-    //   editable: true,
-    // },
-    // {
-    //   field: 'phone',
-    //   headerName: 'Phone',
-    //   editable: true,
-    // },
-    // {
-    //   field: 'street1',
-    //   headerName: 'Street1',
-    //   editable: true,
-    // },
-    // {
-    //   field: 'street2',
-    //   headerName: 'Street2',
-    //   editable: true,
-    // },
-    // {
-    //   field: 'city',
-    //   headerName: 'City',
-    //   editable: true,
-    // },
-    // {
-    //   field: 'state',
-    //   headerName: 'State',
-    //   editable: true,
-    //   type: 'singleSelect',
-    //   valueOptions: CONSTANTS.STATES,
-    // },
-    // {
-    //   field: 'zip',
-    //   headerName: 'Zip',
-    //   editable: true,
-    // },
     {
       field: 'actions',
       type: 'actions',
